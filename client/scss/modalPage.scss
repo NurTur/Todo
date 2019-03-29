@@ -1,0 +1,97 @@
+#form-outer {
+  overflow-y: auto;   
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  min-width: 480px;
+  background-color: rgb(235, 231, 225);
+   margin: 0 auto;
+  border-radius: 4px;
+  width: 66.6%;
+  max-width: 750px;
+  padding: 10px;
+  padding-top: 20px;
+
+
+  .labels {
+  display: inline-block;
+  text-align: right;
+  width: 30%;
+  padding: 5px;
+  vertical-align: top;
+  margin-top: 15px;
+}
+
+.rightTab {
+  display: inline-block;
+  text-align: left;
+  width: 50%;
+  vertical-align:  bottom;
+}
+
+.input-field {
+  font-family: monospace;
+  font-size: 18px;
+  height: 30px;
+  width: 23vw;
+  min-width: 260px;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #c0c0c0;
+  border-radius: 2px;
+}
+
+.textarea-field {
+  font-family: monospace;
+  font-size: 18px;
+  height: 150px;
+  width: 23vw;
+  min-width: 260px;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #c0c0c0;
+  border-radius: 2px;
+}
+.radio-field {
+  font-family: monospace;
+  font-size: 18px;
+  height: 150px;
+  width: 280px;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #c0c0c0;
+  border-radius: 2px;
+}
+.rightTabRadio {
+  display: inline-block;
+  text-align: left;
+  width: 50%;
+  vertical-align: bottom;
+}
+.center
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:hover {
+  color: black;
+  background-color: #8bc0ee;
+}
+.button {
+  background-color: #0b599e;
+  border-radius: 4px;
+  color: white;
+  font-size: 1em;
+  height: 40px;
+  width: 40%; 
+  border: 0px solid;
+}
+.button2
+{
+      margin-left: 5%;
+}
+
+}
+

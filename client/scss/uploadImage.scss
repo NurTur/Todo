@@ -1,0 +1,99 @@
+@mixin flex() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin button()
+{
+  background-color: #373f46;
+  border-radius: 4px;
+  color: white;
+  font-size: 1em;
+  height: 40px;
+    padding-left: 10px;
+      padding-right: 10px;
+  border: 0px solid;
+}
+
+#imageUpload {
+  width: 40vw;
+  height: 240px;
+  min-width: 480px;
+  background: white;
+  border: 1px solid black;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+
+  border-radius: 5px;
+  display: grid;
+  grid-template-rows: 25% 50% 25%;
+  grid-template-areas:
+    "headerForm"
+    "mainForm"
+    "footerForm";
+
+
+ 
+  .imageHeader {
+    grid-area: headerForm;
+    @include flex();
+    input {
+      width: 0%;
+      visibility: hidden;
+    }
+    label:hover {
+      color: black;
+  background-color: rgb(207, 199, 199);
+    }
+    label {
+      @include flex();
+      @include button();
+       padding-left: 10px;
+      padding-right: 10px;
+   
+    }
+  }
+
+  .imageMain {
+    grid-area: mainForm;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 2fr auto;
+    grid-template-areas: "textMain imageMain";
+    .text {
+      @include flex();
+      flex-direction: column;
+      grid-area: textMain;
+      padding-left: 10px;
+      padding-right: 10px;
+      word-break: break-all;
+      height: 98px;
+    }
+    .image {
+      grid-area: imageMain;
+      @include flex(); 
+      .imageView {
+       max-height: 98px;
+      width: 120px;
+
+       }
+      
+     
+    }
+  }
+  .imageFooter {
+    grid-area: footerForm;
+    @include flex();
+    padding-right: 10px;
+    .imageButton:hover {
+      color: black;
+  background-color: rgb(207, 199, 199);
+    }
+    .imageButton {
+        font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+      @include button();
+
+    }
+  }
+}
