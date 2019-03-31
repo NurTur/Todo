@@ -16,9 +16,10 @@
     justify-content: left;
     align-items:center;
     }
-     main {
+    main {
     grid-area: mainView;
-    background-color: #1D2733;
+    background-color:#1D2733;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items:center;

@@ -13,6 +13,7 @@ import "./scss/loginPage.scss";
 import "./scss/pageView.scss";
 import "./scss/modalPage.scss";
 import "./scss/uploadImage.scss";
+import "./scss/tasksList.scss";
 
 
 const store = createStore(BaseReducer);

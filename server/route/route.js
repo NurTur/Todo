@@ -9,7 +9,7 @@ module.exports = function (router, USERS) {
 
 
   router.post('/login', passport.authenticate('local', { failureRedirect: '/api/todolist' }), (req, res) => {
-    const answer = { _id: req.user._id, username: req.user.username, todolist: req.user.todolist };
+    const answer = { _id: req.user._id, username: req.user.username, todolist: req.user.todolist, number: req.user.number };
     res.status(200).json(answer);
   });
 
@@ -25,7 +25,8 @@ module.exports = function (router, USERS) {
         const data = {
           username: req.body.username,
           password: hash,
-          todolist: []
+          todolist: [],
+          number: 0
         };
         const newuser = new USERS(data);
         newuser.save().then(() => next(null, newuser)).catch((err) => res.redirect('/api/todolist'))
@@ -34,7 +35,7 @@ module.exports = function (router, USERS) {
   },
     passport.authenticate('local', { failureRedirect: '/api/todolist' }),
     (req, res, next) => {
-      res.status(200).json({ username: req.user.username, _id: req.user._id, todolist: [] });
+      res.status(200).json({ username: req.user.username, _id: req.user._id, todolist: [], number: 0 });
     }
   );
 

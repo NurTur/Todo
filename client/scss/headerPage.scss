@@ -7,16 +7,15 @@ $font: "Roboto", Helvetica, Arial, sans-serif;
 
 #headerPage {
     background-color:#373f46;
-    height:80px;
+    height:90px;
     display: flex;
-    justify-content: left;
     align-items:center;
-  
+     
 .headerContainer
 {
 margin-left: 10px;
 height: 60px; 
-width: 85vw;
+width: 90vw;
 margin-left: 5vw;
 background-color: #373f46;
 display: grid;
@@ -46,7 +45,7 @@ grid-template-areas:
 
 #nav1:hover { background-color: #57bff7; }
 #nav1 {
-    margin-right: 50px;
+    margin-right: 40px;
     background: #32ACED;
     height: 45px;
     width: 80px;
@@ -60,9 +59,9 @@ grid-template-areas:
     }
 #nav2:hover { background-color: #E0A950; }
 #nav2 {
-    margin-right: 50px;
+    margin-right: 40px;
     background: #E0A905;
-    height: 35px;
+    height: 45px;
     width: 80px;
     border-radius: 5px;      
     color: white;

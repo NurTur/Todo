@@ -1,6 +1,5 @@
 import axios from 'axios';
 export default function (file, obj) {
-
     if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
         const formData = new FormData();
         formData.append('_id', obj._id);

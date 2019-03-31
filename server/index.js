@@ -47,37 +47,37 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-
 mongoose.connect(DATABASE, { useNewUrlParser: true })
   .then(() => {
     console.log("MongoDB Databases connected");
-
     app.post('/api/taskWithPhoto', upload.single('taskImage'), async (req, res) => {
       const newdata = {
-        taskNumber: req.body.taskNumber,
+        taskNumber: Number(req.body.taskNumber),
         taskName: req.body.taskName,
         taskDescribe: req.body.taskDescribe,
-        taskStatus: req.body.taskStatus,
+        taskStatus: Boolean(req.body.taskStatus),
         Date: Date.now(),
         taskImage: req.file.path
       }
       const User = await USERS.findById(req.body._id);
-      User.todolist = [...User.todolist, newdata];
+      User.todolist = [newdata, ...User.todolist];
+      User.number = User.number + 1;
       await User.save();
       res.status(201).json(newdata);
     })
 
-    app.post('/api/productsOutPhoto', async (req, res) => {
+    app.post('/api/taskOutPhoto', async (req, res) => {
       const newdata = {
-        taskNumber: req.body.taskNumber,
+        taskNumber: Number(req.body.taskNumber),
         taskName: req.body.taskName,
         taskDescribe: req.body.taskDescribe,
-        taskStatus: req.body.taskStatus,
+        taskStatus: Boolean(req.body.taskStatus),
         Date: Date.now(),
         taskImage: "dist\\images\\NoImageAvailable.jpg"
       }
       const User = await USERS.findById(req.body._id);
-      User.todolist = [...User.todolist, newdata];
+      User.todolist = [newdata, ...User.todolist];
+      User.number = User.number + 1;
       await User.save();
       res.status(201).json(newdata);
     });

@@ -1,10 +1,12 @@
 import React from "react";
 import Modal from "react-modal";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { AddTASK } from "../store/actions/user";
+import { SetMODAL } from "../store/actions/modal";
 import UploadImage from "./uploadImage";
 import PostTask from "../services/postTask";
+
 
 
 const customStyles = {
@@ -18,32 +20,41 @@ const customStyles = {
 Modal.setAppElement("#app");
 
 class ModalPage extends React.Component {
-    state = { name: "", describe: "", status: false };
-    closeModal = () => this.props.onCloseModal();
+
+    state = { name: "", describe: "", status: "" };
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextProps.Modal === true && this.props.Modal === false) {
+            this.props.Image.image = false;
+            this.props.Image.selectedFile = null;
+            this.props.Image.info = false;
+            this.setState({ name: "", describe: "", status: "" });
+        }
+    }
+
 
     handleSubmit = e => {
         e.preventDefault();
         const { name, describe, status } = this.state;
         if (name.length > 0 && describe.length > 0) {
-            const { image, info } = this.props.Image;
+            const { image, info, selectedFile } = this.props.Image;
 
             const obj = {
                 _id: this.props.User._id,
-                taskNumber: 1,
+                taskNumber: this.props.User.number + 1,
                 taskName: name,
                 taskDescribe: describe,
                 taskStatus: status
             };
 
-            console.log(image, '  ', info);
-            if (image !== false && info) {
+            if (image && info) {
+                this.props.SetMODAL(false);
+                PostTask(selectedFile, obj)
+                    .then(res => this.props.AddTASK(res.data))
 
-                this.props.onCloseModal();
-                PostTask(this.props.Image.selectedFile, obj)
-                    .then(res => this.props.AddTASK(res.data));
             }
             else {
-                this.props.onCloseModal();
+                this.props.SetMODAL(false);
                 PostTask(null, obj)
                     .then(res => this.props.AddTASK(res.data));
             }
@@ -54,7 +65,7 @@ class ModalPage extends React.Component {
 
     render() {
         return (
-            <Modal isOpen={this.props.modalOpen} ariaHideApp={false} style={customStyles}>
+            <Modal isOpen={this.props.Modal} ariaHideApp={false} style={customStyles}>
 
                 <div id="form-outer">
                     <h1>Task Form</h1>
@@ -66,7 +77,8 @@ class ModalPage extends React.Component {
                                 <label id="name-label" htmlFor="name">* Task Name </label>
                             </div>
                             <div className="rightTab">
-                                <input type="text" id="name" className="input-field" placeholder="Enter task name"
+                                <input type="text" id="name" className="input-field"
+                                    placeholder="Enter task name" value={this.state.name}
                                     onChange={(event) => this.setState({ name: event.target.value })} required />
                             </div>
                         </div>
@@ -76,7 +88,8 @@ class ModalPage extends React.Component {
                                 <label htmlFor="comments">* Describe task </label>
                             </div>
                             <div className="rightTab">
-                                <textarea id="comments" className="textarea-field" placeholder="Enter your task here..."
+                                <textarea id="comments" className="textarea-field"
+                                    placeholder="Enter your task here..." value={this.state.describe}
                                     onChange={(event) => this.setState({ describe: event.target.value })} required></textarea>
                             </div>
                         </div>
@@ -86,9 +99,9 @@ class ModalPage extends React.Component {
                                 <label >* Task Status </label>
                             </div>
                             <div className="rightTab">
-                                <label className="radio-field"><input value={true} name="radio" type="radio"
+                                <label className="radio-field"><input value={this.state.status} name="radio" type="radio"
                                     onChange={(event) => this.setState({ status: event.target.value })} /> On  </label>
-                                <label className="radio-field"><input value={false} name="radio" type="radio" defaultChecked={true}
+                                <label className="radio-field"><input value={this.state.status} name="radio" type="radio" defaultChecked={true}
                                     onChange={(event) => this.setState({ status: event.target.value })} /> Off </label>
                             </div>
                         </div>
@@ -96,7 +109,7 @@ class ModalPage extends React.Component {
                         <div className="center"><UploadImage /></div>
                         <br />
                         <button className="button" type="submit" onClick={this.handleSubmit}>SUBMIT</button>
-                        <button className="button button2" onClick={this.closeModal}>CANCEL</button>
+                        <button className="button button2" onClick={() => this.props.SetMODAL(false)}>CANCEL</button>
                     </form>
                 </div>
             </Modal>
@@ -104,7 +117,7 @@ class ModalPage extends React.Component {
     }
 }
 
-export default connect(state => ({ User: state.User, Image: state.Image }),
-    dispatch => bindActionCreators({ AddTASK }, dispatch))(ModalPage);
+export default connect(state => ({ User: state.User, Image: state.Image, Modal: state.Modal }),
+    dispatch => bindActionCreators({ AddTASK, SetMODAL }, dispatch))(ModalPage);
 
 
