@@ -9,26 +9,11 @@ const passport = require('passport');
 const cors = require("cors");
 
 const USERS = mongoose.model("users", require("./models/modelUsers"));
-
 const Route = require('./route/route');
 const Auth = require('./auth/auth');
 
 const { PORT, SESSION_SECRET, DATABASE } = require("./config/keys");
 
-/****************************************************************************/
-const multer = require('multer');
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname);
-  },
-
-});
-
-const upload = multer({ storage })
 /******************************************************************************/
 
 app.use(session({
@@ -50,37 +35,9 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 mongoose.connect(DATABASE, { useNewUrlParser: true })
   .then(() => {
     console.log("MongoDB Databases connected");
-    app.post('/api/taskWithPhoto', upload.single('taskImage'), async (req, res) => {
-      const newdata = {
-        taskNumber: Number(req.body.taskNumber),
-        taskName: req.body.taskName,
-        taskDescribe: req.body.taskDescribe,
-        taskStatus: Boolean(req.body.taskStatus),
-        Date: Date.now(),
-        taskImage: req.file.path
-      }
-      const User = await USERS.findById(req.body._id);
-      User.todolist = [newdata, ...User.todolist];
-      User.number = User.number + 1;
-      await User.save();
-      res.status(201).json(newdata);
-    })
 
-    app.post('/api/taskOutPhoto', async (req, res) => {
-      const newdata = {
-        taskNumber: Number(req.body.taskNumber),
-        taskName: req.body.taskName,
-        taskDescribe: req.body.taskDescribe,
-        taskStatus: Boolean(req.body.taskStatus),
-        Date: Date.now(),
-        taskImage: "dist\\images\\NoImageAvailable.jpg"
-      }
-      const User = await USERS.findById(req.body._id);
-      User.todolist = [newdata, ...User.todolist];
-      User.number = User.number + 1;
-      await User.save();
-      res.status(201).json(newdata);
-    });
+    const GrudRouter = require('./route/grud_route');
+    app.use('/api', GrudRouter);
 
     Auth(USERS);
     Route(Router, USERS);

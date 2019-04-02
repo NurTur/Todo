@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import { createStore } from 'redux';
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -19,6 +18,8 @@ import "./scss/tasksList.scss";
 const store = createStore(BaseReducer);
 
 store.subscribe(() => console.log(store.getState()));
+
+
 
 class Main extends React.Component {
   state = { HomePage: null, AuthPage: null }
@@ -40,7 +41,7 @@ class Main extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/" component={AuthPage} />
-            <Route path="/game" component={HomePage} />
+            <Route path="/:id" component={HomePage} />
           </Switch>
         </Router>
       </Provider>);

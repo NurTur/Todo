@@ -28,7 +28,7 @@ class AuthenticateClass extends React.Component {
 
     render() {
         if (this.props.User._id.length > 1) {
-            return (<Redirect to="/game" />);
+            return <Redirect to={`/${this.props.User._id}`} />
         } else {
 
             const { text, username, password } = this.state;

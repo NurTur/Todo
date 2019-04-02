@@ -78,10 +78,17 @@
   
   .col-5 {
     flex-basis: 18%;
+    margin-right: 20px;
     display: flex;
     flex-direction: row;  
+    justify-content: space-around;
     .edit { text-align: center; width:50%;    }
     .remove {  text-align: center; width:50%; }
+  button:hover { background-color: #57bff7; }
+  button {
+    background: #32ACED;
+    border-radius: 5px;      
+    }
     .edit::before 
 {
 content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADoSURBVEhL7daxDsFQFIfxYmAQi0QisYpH8QJiM5nMHoDFZvIURiaxs1rMTF7AKBJ8R3uTRm5F5JwO9J/8UqZPbzsIsikuF11TWwVLXLFGFeaT6Bb3mB1M42W8RuNx+VEmK2AOX1iMobp8dJW9i0+hNjm+DfrPb+F88RMaUFn8RbohKS7RJlTme3t98RlMo0lxtb2LOhLvQW2fRIX5M/XJol/tf6KyNvbwxRz1qNsAvqAwi8q6SC1aRCn8GLRwwBmmUVkHK7i4Wx1HmB3vAnJnvngtuqpP/klc4I51gtQ2xAjyfLP9woLgARyknW3phl8JAAAAAElFTkSuQmCC);
@@ -129,8 +136,9 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iA
     .col-5 { 
     display: flex;
     flex-direction: row;  
-    .edit {  text-align:right; width:70%; }
-    .remove {  width:30%; }
+    justify-content: space-around;
+    .edit {  width:80px; }
+    .remove {  width:80px; }
     
     }
    .col {

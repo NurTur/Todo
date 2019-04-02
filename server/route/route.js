@@ -26,7 +26,8 @@ module.exports = function (router, USERS) {
           username: req.body.username,
           password: hash,
           todolist: [],
-          number: 0
+          number: 0,
+          tasksKeyCount: 0
         };
         const newuser = new USERS(data);
         newuser.save().then(() => next(null, newuser)).catch((err) => res.redirect('/api/todolist'))
